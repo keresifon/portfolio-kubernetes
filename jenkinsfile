@@ -71,7 +71,6 @@ pipeline {
 
         stage('Orchestrate') { 
         
-       
 
             steps { 
 
@@ -85,7 +84,6 @@ pipeline {
     }
                      
                 
-
             }
 
         } 
