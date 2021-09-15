@@ -6,7 +6,7 @@ metadata:
   namespace: portfolio-keresifon
 spec:
   rules:
-    - host: port.okpogho.com
+    - host: portfolio-keresifon.cloud.okteto.net
       http:
         paths:
           - path: /
