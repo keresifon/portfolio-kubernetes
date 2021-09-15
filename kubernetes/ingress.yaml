@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: p-ingress
-  namespace: portfolio
+  namespace: portfolio-keresifon
 spec:
   rules:
     - host: port.okpogho.com
