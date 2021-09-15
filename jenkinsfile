@@ -75,8 +75,8 @@ pipeline {
 
             steps { 
 
-               withKubeConfig([credentialsId: 'Kubernetes',
-                    serverUrl: 'https://1fb7e70c-e9a5-4783-887d-c74d5ee5449c.k8s.ondigitalocean.com'
+               withKubeConfig([credentialsId: 'okteto-token',
+                    serverUrl: 'https://146.148.56.200:443'
                     ]) {
                         sh 'kubectl apply -f kubernetes/namespace.yaml'
                         sh 'kubectl apply -f kubernetes/service.yaml'
