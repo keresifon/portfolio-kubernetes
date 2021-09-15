@@ -2,7 +2,7 @@ pipeline {
 
     environment { 
 
-        registry = "keresifon/jenkins-test" 
+        registry = "keresifon/kubernetes" 
 
         registryCredential = 'keresifon' 
 
@@ -21,7 +21,7 @@ pipeline {
 
             steps { 
 
-                git 'https://github.com/keresifon/portfolio.git' 
+                git 'https://github.com/keresifon/portfolio-kubernetes.git' 
 
             }
 
