@@ -1,0 +1,97 @@
+pipeline { 
+
+    environment { 
+
+        registry = "keresifon/jenkins-test" 
+
+        registryCredential = 'keresifon' 
+
+        dockerImage = '' 
+
+    }
+   
+   
+    agent any 
+
+    
+
+    stages { 
+
+        stage('Cloning our Git') { 
+
+            steps { 
+
+                git 'https://github.com/keresifon/portfolio.git' 
+
+            }
+
+        } 
+
+        stage('Building our image') { 
+
+            steps { 
+
+                script { 
+
+                    dockerImage = docker.build registry + ":latest" 
+
+                }
+
+            } 
+
+        }
+
+        stage('Deploy our image') { 
+
+            steps { 
+
+                script { 
+
+                    docker.withRegistry( '', registryCredential ) { 
+
+                        dockerImage.push() 
+
+                    }
+
+                } 
+
+            }
+
+        } 
+
+        stage('Cleaning up') { 
+
+            steps { 
+
+                sh "docker rmi $registry:latest" 
+
+            }
+
+        } 
+
+        stage('Orchestrate') { 
+        
+       
+
+            steps { 
+
+               withKubeConfig([credentialsId: 'Kubernetes',
+                    serverUrl: 'https://1fb7e70c-e9a5-4783-887d-c74d5ee5449c.k8s.ondigitalocean.com'
+                    ]) {
+                        sh 'kubectl apply -f kubernetes/namespace.yaml'
+                        sh 'kubectl apply -f kubernetes/service.yaml'
+                        sh 'kubectl apply -f kubernetes/ingress.yaml'
+                        sh 'kubectl apply -f kubernetes/deployment.yaml'
+    }
+                     
+                
+
+            }
+
+        } 
+
+        
+
+    }
+
+}
