@@ -6,7 +6,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-FROM nginx:1.31.3
+FROM nginx:1.31.3-alpine3.24-slim
 WORKDIR /usr/share/nginx/html
 RUN rm -rf ./*
 COPY --from=builder /web/build /usr/share/nginx/html
